@@ -54,8 +54,8 @@ class test_MySQLdb(capabilities.DatabaseTest):
 
         c.callproc('test_sp', ('larch',))
         rows = c.fetchall()
-        self.assertEquals(len(rows), 1)
-        self.assertEquals(rows[0][0], 3)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0][0], 3)
         c.nextset()
         
         c.execute("DROP PROCEDURE test_sp")
@@ -76,8 +76,8 @@ class test_MySQLdb(capabilities.DatabaseTest):
         from MySQLdb.constants import ER
         try:
             self.cursor.execute("describe some_non_existent_table");
-        except self.connection.ProgrammingError, msg:
-            self.assertEquals(msg[0], ER.NO_SUCH_TABLE)
+        except self.connection.ProgrammingError as msg:
+            self.assertEqual(msg[0], ER.NO_SUCH_TABLE)
 
     def test_bug_3514287(self):
         c = self.cursor
